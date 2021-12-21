@@ -9,11 +9,26 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     </head>
     <body>
-        <ul id="fileList" style="list-style-type:none; margin:0; padding:0; font-family: monospace;"></ul>
+        <div id="fileList">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead id="table-head" class="table-dark">
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">URL</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+          
         <script src="./azure-storage.common.min.js"></script> 
         <script src="./azure-storage.blob.min.js"></script>
         <script>
-            var listNode = document.getElementById('fileList');
+            var tableBodyNode = document.getElementById('table-body');
             var blobUri = window.location.origin;
             var blobContainer = window.location.pathname.split("/",2)[1];
             var blobService = AzureStorage.createBlobServiceAnonymous(blobUri);
@@ -26,14 +41,42 @@
                     });
                     for( var i=0, blob; blob = results.entries[i]; i++) {
                         if(!blob.name.endsWith(".js") && blob.name != "index.html") {
-                            //Do something with object
-                            var resultNode = document.createElement("li");
-                            resultNode.style.cssText = 'list-decoration:none;';
-                            var textNode = document.createElement("a");
-                            textNode.setAttribute("href", blobUri+"/"+blobContainer+"/"+blob.name);
-                            textNode.text = blob.lastModified + " " + blob.name;
-                            resultNode.appendChild(textNode);
-                            listNode.appendChild(resultNode);
+
+                            blobElement = document.createElement("tr");
+                            blobNameElement = document.createElement("td");
+                            blobNameElement.innerHTML = blob.name;
+                            blobUrlElement = document.createElement("td");
+                            blobUrlElement.innerHTML = blobUri + "/" + blobContainer + "/" + blob.name;
+                            blobElement.appendChild(blobNameElement);
+                            blobElement.appendChild(blobUrlElement);
+                            tableBodyNode.appendChild(blobElement);
+
+                            // // Name
+                            // var blobNameNode = document.createElement("tr");
+                            // blobNameNode.id = "tableBlobName"
+                            // var blobNameElement = document.createElement("td");
+                            // blobNameElement.innerHTML = blob.name;
+
+                            // blobNameNode.appendChild(blobNameElement);
+                            // tableBodyNode.appendChild(blobNameNode);
+
+                            // // Link
+                            // var blobUrlNode = document.createElement("tr");
+                            // blobUrlNode.id = "tableBlobUrl"
+                            // var blobUrlElement = document.createElement("td");
+
+                            // var blobUrlLink = document.createElement("a");
+                            // blobUrlLink.setAttribute("href", blobUri + "/" + blobContainer + "/" + blob.name);
+                            // blobUrlLink.text = "Link."
+                            // blobUrlElement.innerHTML = blobUrlLink;
+
+                            // blobUrlNode.appendChild(blobUrlElement);
+                            // tableBodyNode.appendChild(blobUrlNode);
+
+                            // textNode.setAttribute("href", blobUri+"/"+blobContainer+"/"+blob.name);
+                            // textNode.text = blob.lastModified + " " + blob.name;
+                            // resultNode.appendChild(textNode);
+                            // listNode.appendChild(resultNode);
                         }
                     }
                 }
