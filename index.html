@@ -24,7 +24,7 @@
                         return new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime() 
                     });
                     for( var i=0, blob; blob = results.entries[i]; i++) {
-                        if(!blob.name.endsWith("min.js") && blob.name != "index.html") {
+                        if(!blob.name.endsWith(".js") && blob.name != "index.html") {
                             //Do something with object
                             var resultNode = document.createElement("li");
                             resultNode.style.cssText = 'list-decoration:none;';
