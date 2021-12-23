@@ -39,8 +39,8 @@
     <script src="./azure-storage.blob.min.js"></script>
     <script>
       const tableBody = document.querySelector("#table-body");
-      const blobUri = window.location.origin;
-      const blobContainer = window.location.pathname.split("/", 2)[1];
+      const blobUri = location.origin;
+      const blobContainer = location.pathname.split("/", 2)[1];
       const blobService = AzureStorage.createBlobServiceAnonymous(blobUri);
 
       blobService.listBlobsSegmented(blobContainer, null, (error, results) => {
@@ -68,7 +68,7 @@
 
             blobElement.appendChild(blobNameElement);
             blobElement.appendChild(blobUrlElement);
-            tableBodyNode.appendChild(blobElement);
+            tableBody.appendChild(blobElement);
           }
         });
       });
