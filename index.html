@@ -59,10 +59,10 @@
 
         sortByDate.forEach((blob) => {
           if (!blob.name.endsWith(".js") && blob.name !== "index.html") {
-            const blobElement = document.createElement("td");
-            const blobNameElement = elementCreator("td", blob.name);
+            const blobElement = document.createElement("tr");
+            const blobNameElement = elementCreator("th", blob.name);
             const blobUrlElement = elementCreator(
-              "td",
+              "th",
               `${blobUri}/${blobContainer}/${blob.name}`
             );
 
